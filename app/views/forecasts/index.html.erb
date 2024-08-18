@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Forecasts" %>
+
+<h1>Forecasts</h1>
+
+<div id="forecasts">
+
+  <%= render "form", forecast: @forecast %>
+
+  <div id="forecast">
+    <P/>
+    <%= render @forecast %>
+  </div>
+</div>
