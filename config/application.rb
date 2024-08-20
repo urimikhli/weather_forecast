@@ -1,5 +1,6 @@
 require_relative "boot"
 
+require File.expand_path('boot', __dir__)
 require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
@@ -16,6 +17,24 @@ module WeatherForecast
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    def configure_component
+      fail ArgumentError, 'Block required' unless block_given?
+
+      config.to_prepare do
+        yield
+      end
+    end
+    config.generators do |gen|
+      gen.test_framework :rspec,
+                         fixtures: true,
+                         view_specs: false,
+                         helper_specs: false,
+                         routing_specs: false,
+                         controller_specs: true,
+                         request_specs: true
+      gen.fixture_replacement :factory_bot, dir: 'spec/factories'
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -23,5 +42,7 @@ module WeatherForecast
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.time_zone = 'Eastern Time (US & Canada)'
+
   end
 end

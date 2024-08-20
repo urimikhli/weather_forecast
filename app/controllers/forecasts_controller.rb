@@ -1,10 +1,11 @@
 class ForecastsController < ApplicationController
-  before_action :set_forecast, only: %i[ show edit update destroy ]
+  before_action :get_forecast, only: %i[ show edit create update destroy index ]
 
   # GET /forecasts or /forecasts.json
   def index
-    @forecasts = Forecast.all
-    @forecast = Forecast.new(forecast_params) || {}
+    zipcode = params['zipcode']
+
+    @forecast = Forecast.find_by(zipcode: zipcode) || Forecast.new
   end
 
   # GET /forecasts/1 or /forecasts/1.json
@@ -22,11 +23,11 @@ class ForecastsController < ApplicationController
 
   # POST /forecasts or /forecasts.json
   def create
-    @forecast = Forecast.new(forecast_params)
+    @forecast = Forecast.new(forecast_params) if @forecast&.id.nil?
 
     respond_to do |format|
       if @forecast.save
-        format.html { redirect_to forecasts_path(@forecast), notice: "Forecast was successfully created." }
+        format.html { redirect_to forecasts_path(zipcode: @forecast.zipcode), notice: "Forecast was successfully created." }
         format.json { render :index, status: :created, location: @forecast }
       else
         format.html { render :index, status: :unprocessable_entity }
@@ -39,7 +40,7 @@ class ForecastsController < ApplicationController
   def update
     respond_to do |format|
       if @forecast.update(forecast_params)
-        format.html { redirect_to forecasts_path(@forecast), notice: "Forecast was successfully updated." }
+        format.html { redirect_to forecasts_path(zipcode: @forecast.zipcode), notice: "Forecast was successfully updated." }
         format.json { render :index, status: :ok, location: @forecast }
       else
         format.html { render :index, status: :unprocessable_entity }
@@ -60,12 +61,31 @@ class ForecastsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_forecast
-      @forecast = Forecast.find(params[:id])
+    def get_forecast
+      if params['forecast'].nil?
+        @forecast = Forecast.new
+      else
+        param_fields = params['forecast']
+        zipcode = param_fields['zipcode']
+        @forecast = Forecast.find_by(zipcode: zipcode) || Forecast.new(zipcode: zipcode)
+      end
+
+        # check updated time of the record
+        #if @forecast.updated_at > 30.minutes.ago
+          # weather_forecast = WeatherForcastService.call(zipcode:)
+          ### for testing
+          weather_forecast = {
+          todays_temp: 80,
+          high_temp: 84,
+          low_temp: 72
+          }
+          ###
+          @forecast.assign_attributes(weather_forecast) if zipcode
+        #end
     end
 
     # Only allow a list of trusted parameters through.
     def forecast_params
-      params.permit(:forecast).permit(:zipcode, :todays_temp, :high_temp, :low_temp)
+      params.permit(:forecast).permit(:zipcode)
     end
 end
