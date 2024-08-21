@@ -69,19 +69,8 @@ class ForecastsController < ApplicationController
         zipcode = param_fields['zipcode']
         @forecast = Forecast.find_by(zipcode: zipcode) || Forecast.new(zipcode: zipcode)
       end
-
-        # check updated time of the record
-        #if @forecast.updated_at > 30.minutes.ago
-          # weather_forecast = WeatherForcastService.call(zipcode:)
-          ### for testing
-          weather_forecast = {
-          todays_temp: 80,
-          high_temp: 84,
-          low_temp: 72
-          }
-          ###
-          @forecast.assign_attributes(weather_forecast) if zipcode
-        #end
+      weather_forecast = WeatherForecastService::Forecast.new.call(location: zipcode)
+      @forecast.assign_attributes(weather_forecast) if zipcode
     end
 
     # Only allow a list of trusted parameters through.
