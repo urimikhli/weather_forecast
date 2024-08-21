@@ -15,6 +15,11 @@ module WeatherForecastService
           expect(call_response).to eq({})
         end
       end
+      context "the zipcode does not exist in the DB"
+      context "the zipcode already exists in the DB" do
+        context "its been less then 30 minutes"
+        context "its been more then 30 minutes"
+      end
     end
   end
 end
