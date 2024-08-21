@@ -4,7 +4,24 @@ require 'rails_helper'
 module WeatherForecastService
   RSpec.describe Forecast do
     subject { Forecast.new }
-    let(:zipcode) { "11230" }
+    let(:api_forecast) {
+      {
+        "days": [
+          "temp": 70,
+          "tempmax": 80,
+          "tempmin": 60
+        ]
+      }
+    }
+    let(:forecast) {
+      {
+        "todays_temp" => 70,
+        "high_temp" => 80,
+        "low_temp" => 60,
+        "five_day" => nil # placeholder, not used yet
+      }
+    }
+
     describe "#call" do
       before do
       end
@@ -15,10 +32,25 @@ module WeatherForecastService
           expect(call_response).to eq({})
         end
       end
-      context "the zipcode does not exist in the DB"
+      context "the zipcode does not exist in the DB" do
+        let(:zipcode) { "11230" }
+        it "should return a new api forecast" do
+          allow(VisualCrossingApi).to receive(
+            :get_forecast
+          ).with(location: zipcode). and_return(api_forecast)
+          call_response = subject.call(location: zipcode)
+          expect(call_response).to eq(forecast)
+        end
+      end
       context "the zipcode already exists in the DB" do
-        context "its been less then 30 minutes"
-        context "its been more then 30 minutes"
+        context "its been less then 30 minutes" do
+          it "should  not call the api" do
+          end
+        end
+        context "its been more then 30 minutes" do
+          it "should call the api" do
+          end
+        end
       end
     end
   end
