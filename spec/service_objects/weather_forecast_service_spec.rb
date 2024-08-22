@@ -15,10 +15,11 @@ module WeatherForecastService
     }
     let(:forecast) {
       {
+        :zipcode => "11230",
         "todays_temp" => 70,
         "high_temp" => 80,
         "low_temp" => 60,
-        "five_day" => nil # placeholder, not used yet
+        "five_day" => [{"temp"=>70, "tempmax"=>80, "tempmin"=>60}] # placeholder, not used yet
       }
     }
 
@@ -35,7 +36,7 @@ module WeatherForecastService
       context "the zipcode does not exist in the DB" do
         let(:zipcode) { "11230" }
         it "should return a new api forecast" do
-          allow(VisualCrossingApi).to receive(
+          allow(subject).to receive(
             :get_forecast
           ).with(location: zipcode). and_return(api_forecast)
           call_response = subject.call(location: zipcode)
