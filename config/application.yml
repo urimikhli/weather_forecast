@@ -1,9 +1,9 @@
 development:
-  visual_crossing_api_url: https://weather.visualcrossing.com/VisualCrossingWebServices/rest/timeline/'
+  visual_crossing_api_url: https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/
   visual_crossing_key: HRAT2H5X62YW96SGH4WFUVD9R
 test:
-  visual_crossing_api_url: https://weather.visualcrossing.com/VisualCrossingWebServices/rest/timeline/
+  visual_crossing_api_url: https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/
   visual_crossing_key: HRAT2H5X62YW96SGH4WFUVD9R
 production:
-  visual_crossing_api_url: https://weather.visualcrossing.com/VisualCrossingWebServices/rest/timeline/
+  visual_crossing_api_url: https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/
   visual_crossing_key: <%= ENV['visual_crossing_key'] %>

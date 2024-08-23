@@ -4,7 +4,6 @@ require 'vcr'
 require 'bundler/setup'
 require 'visual_crossing_api'
 
-SimpleCov.start
 
 lib = File.expand_path('lib', File.join(__dir__, '..'))
 $LOAD_PATH << lib
@@ -31,7 +30,7 @@ RSpec.configure do |config|
   end
 
   config.before do
-    base_url = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/timeline/'
+    base_url = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
     api_key = 'HRAT2H5X62YW96SGH4WFUVD9R'
 
     VisualCrossingApi.configure(

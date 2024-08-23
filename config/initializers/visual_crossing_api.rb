@@ -7,7 +7,7 @@ Rails.application.config.to_prepare do
   #
   # Example:
   VisualCrossingApi.configure(
-    base_url: CONFIG[:visual_crossing_api_url],
-    api_key: CONFIG[:visual_crossing_key],
+    base_url: CONFIG.with_indifferent_access[:visual_crossing_api_url],
+    api_key: CONFIG.with_indifferent_access[:visual_crossing_key],
   )
 end

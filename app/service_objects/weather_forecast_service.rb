@@ -1,3 +1,6 @@
+require 'visual_crossing_api'
+require 'visual_crossing_api/get_forecast'
+
 module WeatherForecastService
   class Forecast
     def call(location:)
@@ -16,7 +19,7 @@ module WeatherForecastService
 
     # entry point to external API
     def get_forecast(location:)
-      VisualCrossingApi::GetForcast.new.call(location:)
+      VisualCrossingApi::GetForecast.new.call(location:)
     end
 
     private

@@ -7,6 +7,7 @@ module WeatherForecastService
     let(:zipcode) { "11230" }
     let(:api_forecast) {
       {
+        "address": zipcode,
         "days": [
           "temp": 70,
           "tempmax": 80,

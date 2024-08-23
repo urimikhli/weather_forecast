@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/11230/2024-08-23/2024-08-28/?contentType=json&elements=datetime,datetimeEpoch,address,tempmax,tempmin,temp&include=days&key=HRAT2H5X62YW96SGH4WFUVD9R&unitGroup=us
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.10.1
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Fri, 23 Aug 2024 20:44:41 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '732'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - no-cache,no-transform
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, PUT
+      Access-Control-Allow-Headers:
+      - X-Requested-With, Content-Type, X-Codingpedia
+      X-Powered-By:
+      - Visual Crossing Weather
+    body:
+      encoding: ASCII-8BIT
+      string: '{"queryCost":1,"latitude":40.622994,"longitude":-73.96427,"resolvedAddress":"11230,
+        USA","address":"11230","timezone":"America/New_York","tzoffset":-4.0,"days":[{"datetime":"2024-08-23","datetimeEpoch":1724385600,"tempmax":81.9,"tempmin":65.0,"temp":72.9},{"datetime":"2024-08-24","datetimeEpoch":1724472000,"tempmax":78.0,"tempmin":67.0,"temp":72.9},{"datetime":"2024-08-25","datetimeEpoch":1724558400,"tempmax":79.1,"tempmin":69.0,"temp":74.1},{"datetime":"2024-08-26","datetimeEpoch":1724644800,"tempmax":76.7,"tempmin":71.3,"temp":74.1},{"datetime":"2024-08-27","datetimeEpoch":1724731200,"tempmax":76.9,"tempmin":70.6,"temp":73.6},{"datetime":"2024-08-28","datetimeEpoch":1724817600,"tempmax":77.8,"tempmin":71.5,"temp":74.9}]}'
+  recorded_at: Fri, 23 Aug 2024 20:44:41 GMT
+recorded_with: VCR 6.3.1
