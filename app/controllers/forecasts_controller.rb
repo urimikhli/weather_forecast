@@ -1,11 +1,14 @@
 class ForecastsController < ApplicationController
-  before_action :get_forecast, only: %i[ show edit create update destroy index ]
+  before_action :get_forecast, only: %i[ create update destroy index ]
 
+  attr_accessor :todays_temp, :high_temp, :low_temp
   # GET /forecasts or /forecasts.json
   def index
     zipcode = params['zipcode']
 
     @forecast = Forecast.find_by(zipcode: zipcode) || Forecast.new
+    puts "#index:params##",params.inspect,"###"
+    puts "#index:forecast##",@forecast.inspect,"###"
   end
 
   # GET /forecasts/1 or /forecasts/1.json
@@ -39,7 +42,7 @@ class ForecastsController < ApplicationController
   # PATCH/PUT /forecasts/1 or /forecasts/1.json
   def update
     respond_to do |format|
-      if @forecast.update(forecast_params)
+      if @forecast.save
         format.html { redirect_to forecasts_path(zipcode: @forecast.zipcode), notice: "Forecast was successfully updated." }
         format.json { render :index, status: :ok, location: @forecast }
       else
@@ -63,10 +66,13 @@ class ForecastsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def get_forecast
       if params['forecast'].nil?
+      if params["forecast"].nil?
         @forecast = Forecast.new
       else
         param_fields = params['forecast']
         zipcode = param_fields['zipcode']
+        param_fields = params["forecast"]
+        zipcode = param_fields["zipcode"]
         @forecast = Forecast.find_by(zipcode: zipcode) || Forecast.new(zipcode: zipcode)
       end
       weather_forecast = WeatherForecastService::Forecast.new.call(location: zipcode)
@@ -75,6 +81,6 @@ class ForecastsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def forecast_params
-      params.permit(:forecast).permit(:zipcode)
+      params.permit('forecast').permit('zipcode')
     end
 end

@@ -30,7 +30,7 @@ module WeatherForecastService
         "todays_temp" => today["temp"],
         "high_temp" => today["tempmax"],
         "low_temp" => today["tempmin"],
-        "five_day" => forecast.with_indifferent_access["days"][0..5] # placeholder, not used yet
+        #"five_day" => forecast.with_indifferent_access["days"][0..5] # placeholder, not used yet
       }
     end
   end
