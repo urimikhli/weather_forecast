@@ -1,4 +1,7 @@
 require "visual_crossing_api/version"
+require "visual_crossing_api/error"
+require "visual_crossing_api/http"
+require "visual_crossing_api/get_forecast"
 
 module VisualCrossingApi
   class << self
