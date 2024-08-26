@@ -7,8 +7,6 @@ class ForecastsController < ApplicationController
     zipcode = params['zipcode']
 
     @forecast = Forecast.find_by(zipcode: zipcode) || Forecast.new
-    puts "#index:params##",params.inspect,"###"
-    puts "#index:forecast##",@forecast.inspect,"###"
   end
 
   # GET /forecasts/1 or /forecasts/1.json
@@ -26,7 +24,7 @@ class ForecastsController < ApplicationController
 
   # POST /forecasts or /forecasts.json
   def create
-    @forecast = Forecast.new(forecast_params) if @forecast&.id.nil?
+    # @forecast = Forecast.new(forecast_params) if @forecast&.id.nil?
 
     respond_to do |format|
       if @forecast.save
@@ -65,12 +63,9 @@ class ForecastsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def get_forecast
-      if params['forecast'].nil?
       if params["forecast"].nil?
         @forecast = Forecast.new
       else
-        param_fields = params['forecast']
-        zipcode = param_fields['zipcode']
         param_fields = params["forecast"]
         zipcode = param_fields["zipcode"]
         @forecast = Forecast.find_by(zipcode: zipcode) || Forecast.new(zipcode: zipcode)
