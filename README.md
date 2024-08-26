@@ -25,4 +25,5 @@ Enter Zipcode and get a weather forcast
 - show the five day forecast(field is already in the mapper, just not enabled)
 - add controller spec for `get_forecast` method
 - add request specs for `/forecasts` actions `view` and `create`
+- add options for more elements to be added to the view of a forecast. 
 - Ambitious: A scheduled task that reads the Forecast table every 40 minutes and if a record has not been update in the last 30 minutes then kickoff a sidekiq worker that calls the api with that records locationso as to update it.
