@@ -23,23 +23,4 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_18_195658) do
     t.datetime "updated_at", null: false
     t.index ["zipcode"], name: "index_forecasts_on_zipcode", unique: true
   end
-
-  create_table "weather_forcasts", force: :cascade do |t|
-    t.string "zipcode"
-    t.integer "todays_temp"
-    t.integer "high_temp"
-    t.integer "low_temp"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "weather_forecasts", force: :cascade do |t|
-    t.string "zipcode"
-    t.integer "todays_temp"
-    t.integer "high_temp"
-    t.integer "low_temp"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["zipcode"], name: "index_weather_forecasts_on_zipcode", unique: true
-  end
 end
